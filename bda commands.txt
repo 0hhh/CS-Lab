@@ -1,0 +1,71 @@
+A1-----------single-node--------------
+cd hadoop-3.3.2/sbin
+./start-dfs.sh
+./start-yarn.sh
+jps
+browser>localhost:9870>:9864>:8088
+./stop-all.sh
+A2------------multi-node-------------
+cd hadoop-3.3.2/sbin
+./start-all.sh
+jps
+localhost:9870
+./stop-all.sh
+A3-----------mapreduce-wordcount-------
+./start-all.sh
+cd hadoop-3.3.2
+hadoop dfs -ls /files
+haddop jar /home/mahesh/tmp/WordCount.jar WCDriver /files /output
+browser>9870>Utilities>Browse the system>output>part-00000>head the first
+close
+A4-----------mapreduce-top5-twitter------
+haddop jar /home/mahesh/tmp/TwitterHashTags.jar TwitterHashTagsCount /twitter /output2
+browser>9870>Utilities>Browse the system>output>part-00000>head the first
+close
+./stop-all.sh
+A5----------spark-scala-wordcount-------
+cd spark/sbin
+./start-all.sh
+jps >3
+on slave >ssh slave> jps >2 
+cd hadoop-3.3.2
+start-dfs.sh
+jps >6	slave jps>3
+cd exp5
+hdfs dfs -ls /exp5/Input
+cd spark-shell
+code
+quit
+spark/sbin ./stop-all.sh
+hadoop/sbin ./stop-all.sh
+A6---------Hive--Pig----------
+cd apache-hive-3.1.2-bin/conf
+start-dfs.sh
+jps
+hdfs dfs -ls /user/hive
+hive
+>show tables;
+>select * from student;
+stop-dfs.sh
+cd
+pig -version
+error> cd hadoop/etc/hadoop >nano hadooop-env.sh> source
+start-all.sh
+hdfs dfs -cat 'hdfs://master:9000/pigOutput/part-m-00000'
+stop-all.sh
+A7----------kafka-------
+another terminal 
+su kafka
+
+
+
+
+
+
+
+
+
+
+
+
+
